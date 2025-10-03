@@ -30,8 +30,24 @@ def normalizar(cadena):
     Devuelve:
       Cadena de texto con la palabra normalizada
     """
-    # TODO: Implementa esta función (y elimina la instrucción pass)
-    pass
+    cadena = cadena.lower().strip()
+    res = ""
+    for c in cadena:
+        if c =="á":
+            res +="a"
+        elif c =="ú" or c == "ü":
+            res += "u"
+        elif c =="í":
+            res += "i"
+        elif c =="ó":
+             res += "o"
+        elif c=="é":  
+            res += "e"
+        else:
+           res += c 
+    return res
+            
+    
 
 def ocultar(palabra_secreta, letras_usadas=""):
     '''Devuelve una cadena de texto con la palabra enmascarada. 
@@ -44,8 +60,14 @@ def ocultar(palabra_secreta, letras_usadas=""):
     Devuelve:
       Cadena de texto con la palabra enmascarada
     '''
-    # TODO: Implementa esta función (y elimina la instrucción pass)
-    pass
+    res=""
+    for letra in palabra_secreta:
+        if letra in letras_usadas:
+            res += letra
+        else:
+            res += "_"
+    
+    
 
 
 def ha_ganado(palabra_enmascarada):
@@ -57,11 +79,32 @@ def ha_ganado(palabra_enmascarada):
     Devuelve:
     - True si el jugador ha ganado, False en caso contrario
     '''
-    # TODO: Implementa esta función (y elimina la instrucción pass)
-    pass
+    if "_" in palabra_enmascarada:
+        return False
+    else:
+        return True
 
+def mostrar_estado(palabra_enmascarada, letras_usadas, intentos_restantes):
+    print(f"Estado :{' '.join(palabra_enmascarada)}")
+    if len(letras_usadas) == 0:
+        print("Letras usadas: ninguna")
+    else:
+        print(f"Letras usadas: {letras_usadas}")
 
-# TODO: Implementa la función mostrar_estado
+    print(f"Intentos restantes: {intentos_restantes}")
+    
+
+def pedir_letra(letras_usadas):
+
+    letra=input("Dígame una letra: ")
+
+    if letra.digit():
+        print("Debe introducir una letra") 
+    elif len(letra) >1:
+     print("Debes introducir una única letra")
+    elif letra in letras_usadas:
+    
+    
 
 # TODO: Implementa la función pedir_letra
 
