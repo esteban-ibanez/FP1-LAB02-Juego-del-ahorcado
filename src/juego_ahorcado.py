@@ -66,6 +66,7 @@ def ocultar(palabra_secreta, letras_usadas=""):
             res += letra
         else:
             res += "_"
+    return res
     
     
 
@@ -94,20 +95,49 @@ def mostrar_estado(palabra_enmascarada, letras_usadas, intentos_restantes):
     print(f"Intentos restantes: {intentos_restantes}")
     
 
-def pedir_letra(letras_usadas):
+def pedir_letra(letras_usadas=""):
 
-    letra=input("Dígame una letra: ")
-
-    if letra.digit():
-        print("Debe introducir una letra") 
-    elif len(letra) >1:
-     print("Debes introducir una única letra")
-    elif letra in letras_usadas:
+    while True:
+        letra=input("Dígame una letra: ")
+        if letra.isdigit():
+            print("Debe introducir una letra") 
+        elif len(letra) >1:
+            print("Debes introducir una única letra")
+        elif letra in letras_usadas:
+            print("Ya has utilizado esa letra, prueba con otra")
+        else:
+            return letra.lower()
     
     
+    
+def jugar(palabra_secreta,intentos_restantes=6):
+    
+    palabra_secreta = normalizar(palabra_secreta)
+    
+    if palabra_secreta == "":
+        return None
+    
+    palabra_enmascarada = ocultar(palabra_secreta)
+    
+    letras_usadas = ""
+    
+    while intentos_restantes>0 and not ha_ganado(palabra_secreta):
+        mostrar_estado(palabra_enmascarada,letras_usadas,intentos_restantes)
+        letra = pedir_letra(letras_usadas) 
+        letras_usadas += letra
+        
+        if letra not in palabra_secreta:
+            print("la letra no se encuentra en la palabra...")
+            intentos_restantes -=  1
+        else:
+            print(f"Correcto {letra} pertenece a la palabra...")
+            palabra_enmascarada = ocultar(palabra_secreta,letras_usadas)
+    
+    if ha_ganado(palabra_enmascarada):
+         print(f"Felicidades, has ganado, la palabra secreta era: {palabra_secreta}")
+    else:
+        print(f"Lo siento, has perdido, la próxima vez será, la palabra secreta era: {palabra_secreta}")
+            
+            
+    
 
-# TODO: Implementa la función pedir_letra
-
-# TODO: Implementa la función jugar
-
-# TODO: Escribe el programa principal
